@@ -1,60 +1,30 @@
 package engine;
 
-import injection.Injector;
-import injection.annotations.Inject;
-import injection.annotations.PostConstruct;
-import injection.annotations.Singleton;
-import org.lwjgl.*;
-import org.lwjgl.glfw.*;
-import org.lwjgl.opengl.*;
-import org.lwjgl.system.*;
+import application.GraphicApplication;
 
-import java.nio.*;
+public class Engine extends GraphicApplication {
 
-import static org.lwjgl.glfw.Callbacks.*;
-import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.system.MemoryStack.*;
-import static org.lwjgl.system.MemoryUtil.*;
-
-@Singleton
-public class Engine {
-
-    private final Injector INJECTOR;
-
-    private Window window;
-
-
-    public Engine(Injector injector) {
-        INJECTOR = injector;
-        GLFWErrorCallback.createPrint(System.err).set();
-        if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
+    @Override
+    protected void onStart() {
+        System.out.println("Starting Application...");
     }
 
-    public void run() {
-        this.window = INJECTOR.create(Window.class);
+    @Override
+    protected void onUpdate() {
 
-        GL.createCapabilities();
-        glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
-
-        while (!window.shouldClose()) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            window.render();
-            glfwPollEvents();
-        }
-
-        destroy();
     }
 
-    private void destroy() {
-        window.destroy();
-        glfwTerminate();
-        glfwSetErrorCallback(null).free();
+    @Override
+    protected void onExit() {
+        System.out.println("Exiting Application...");
+    }
+
+    @Override
+    protected void onRender() {
+
     }
 
     public static void main(String[] args) {
-        Injector injector = new Injector();
-        injector.bind(Engine.class, new Engine(injector));
-        injector.get(Engine.class).run();
+        new Engine().run();
     }
 }
