@@ -37,6 +37,7 @@ public final class Injector {
      *
      * @param cls The class to bind the instance too.
      * @param instance The instance for the given class.
+     * @return The newly bound Singleton.
      * @param <T> The type of the class to bind.
      */
     public <T> void bind(Class<T> cls, T instance) {

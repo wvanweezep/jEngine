@@ -1,5 +1,9 @@
 package engine;
 
+import injection.Injector;
+import injection.annotations.Inject;
+import injection.annotations.PostConstruct;
+import injection.annotations.Singleton;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -13,64 +17,44 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
+@Singleton
 public class Engine {
 
-    private long window;
+    private final Injector INJECTOR;
+
+    private Window window;
+
+
+    public Engine(Injector injector) {
+        INJECTOR = injector;
+        GLFWErrorCallback.createPrint(System.err).set();
+        if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
+    }
 
     public void run() {
-        init();
-        loop();
+        this.window = INJECTOR.create(Window.class);
 
-        glfwFreeCallbacks(window);
-        glfwDestroyWindow(window);
+        GL.createCapabilities();
+        glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
+
+        while (!window.shouldClose()) {
+            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+            window.render();
+            glfwPollEvents();
+        }
+
+        destroy();
+    }
+
+    private void destroy() {
+        window.destroy();
         glfwTerminate();
         glfwSetErrorCallback(null).free();
     }
 
-    private void init() {
-        GLFWErrorCallback.createPrint(System.err).set();
-
-        if (!glfwInit()) throw new IllegalStateException("Unable to initialize GLFW");
-
-        window = glfwCreateWindow(300, 300, "Hello World!", NULL, NULL);
-        if ( window == NULL ) throw new RuntimeException("Failed to create the GLFW window");
-
-        glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
-            if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
-                glfwSetWindowShouldClose(window, true);
-        });
-
-        try (MemoryStack stack = stackPush()) {
-            IntBuffer pWidth = stack.mallocInt(1);
-            IntBuffer pHeight = stack.mallocInt(1);
-
-            glfwGetWindowSize(window, pWidth, pHeight);
-            GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-
-            glfwSetWindowPos(
-                    window,
-                    (vidmode.width() - pWidth.get(0)) / 2,
-                    (vidmode.height() - pHeight.get(0)) / 2
-            );
-        }
-
-        glfwMakeContextCurrent(window);
-        glfwSwapInterval(1);
-        glfwShowWindow(window);
-    }
-
-    private void loop() {
-        GL.createCapabilities();
-        glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
-
-        while (!glfwWindowShouldClose(window) ) {
-            glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-            glfwSwapBuffers(window);
-            glfwPollEvents();
-        }
-    }
-
     public static void main(String[] args) {
-        new Engine().run();
+        Injector injector = new Injector();
+        injector.bind(Engine.class, new Engine(injector));
+        injector.get(Engine.class).run();
     }
 }
