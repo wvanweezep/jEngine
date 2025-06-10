@@ -15,12 +15,12 @@ class CardTest {
 
     // ------------------------ BUILDER TESTS ------------------------ //
     @ParameterizedTest
-    @MethodSource("builderGenerator")
+    @MethodSource("builderTestGenerator")
     void cardBuilderTest(Card.Builder builder, String expectedToString) {
         assertThat(builder.build().toString()).isEqualTo(expectedToString);
     }
 
-    private static Stream<Arguments> builderGenerator() {
+    private static Stream<Arguments> builderTestGenerator() {
         return Stream.of(
                 Arguments.of(new Card.Builder(1),
                         cardString(1, CardType.NONE, 0, 0)),

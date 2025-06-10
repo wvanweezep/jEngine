@@ -53,10 +53,10 @@ public class Card {
         /**
          * Sets the CardType of the new {@link Card} being build with the {@link Card.Builder}.
          *
-         * @param type {@link CardType} for the new Card, cannot be {@code null}.
+         * @param type {@link CardType} for the new Card, cannot be null.
          * @return Current Builder class for the new Card being build.
          *
-         * @throws IllegalArgumentException if provided CardType is null.
+         * @throws IllegalArgumentException if provided CardType is {@code null}.
          */
         public Builder setType(CardType type) {
             if (type == null) throw new IllegalArgumentException("New CardType cannot be null");
