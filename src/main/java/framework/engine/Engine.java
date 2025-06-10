@@ -1,10 +1,10 @@
-package engine;
+package framework.engine;
 
-import application.GraphicApplication;
-import graphics.Mesh;
-import graphics.MeshHandler;
-import graphics.ShaderTextured;
-import graphics.TextureHandler;
+import framework.application.GraphicApplication;
+import framework.graphics.Mesh;
+import framework.graphics.MeshHandler;
+import framework.graphics.ShaderTextured;
+import framework.graphics.TextureHandler;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL13;
 import org.lwjgl.opengl.GL20;

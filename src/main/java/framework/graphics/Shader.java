@@ -1,4 +1,4 @@
-package graphics;
+package framework.graphics;
 
 import org.joml.Matrix4f;
 import org.joml.Vector3f;

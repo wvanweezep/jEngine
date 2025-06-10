@@ -1,4 +1,4 @@
-package injection;
+package framework.injection;
 
 /**
  * Thrown when a Circular Dependency is present in a given class.

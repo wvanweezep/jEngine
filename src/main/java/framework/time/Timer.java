@@ -1,4 +1,4 @@
-package time;
+package framework.time;
 
 public class Timer extends AbstractTimer {
 

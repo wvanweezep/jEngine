@@ -1,4 +1,4 @@
-package graphics;
+package framework.graphics;
 
 public class Mesh {
 

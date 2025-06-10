@@ -1,8 +1,8 @@
-package application;
+package framework.application;
 
-import injection.annotations.Inject;
-import injection.annotations.PostConstruct;
-import injection.annotations.Singleton;
+import framework.injection.annotations.Inject;
+import framework.injection.annotations.PostConstruct;
+import framework.injection.annotations.Singleton;
 
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;

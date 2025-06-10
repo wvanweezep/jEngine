@@ -1,7 +1,7 @@
-package graphics;
+package framework.graphics;
 
-import application.IHandler;
-import injection.annotations.Singleton;
+import framework.application.IHandler;
+import framework.injection.annotations.Singleton;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 import org.lwjgl.stb.STBImage;

@@ -1,4 +1,4 @@
-package application;
+package framework.application;
 
 public interface IHandler {
 }

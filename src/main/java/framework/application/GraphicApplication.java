@@ -1,11 +1,10 @@
-package application;
+package framework.application;
 
-import graphics.MeshHandler;
-import graphics.TextureHandler;
-import injection.annotations.Singleton;
+import framework.graphics.MeshHandler;
+import framework.graphics.TextureHandler;
+import framework.injection.annotations.Singleton;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
-import time.Clock;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.glfw.GLFW.glfwSetErrorCallback;

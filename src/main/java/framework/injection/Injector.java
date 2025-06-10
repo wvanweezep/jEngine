@@ -1,8 +1,8 @@
-package injection;
+package framework.injection;
 
-import injection.annotations.Inject;
-import injection.annotations.PostConstruct;
-import injection.annotations.Singleton;
+import framework.injection.annotations.Inject;
+import framework.injection.annotations.PostConstruct;
+import framework.injection.annotations.Singleton;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;

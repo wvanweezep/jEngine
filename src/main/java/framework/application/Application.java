@@ -1,7 +1,7 @@
-package application;
+package framework.application;
 
-import injection.Injector;
-import injection.annotations.Singleton;
+import framework.injection.Injector;
+import framework.injection.annotations.Singleton;
 
 
 /**
