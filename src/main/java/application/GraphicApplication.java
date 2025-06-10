@@ -1,5 +1,7 @@
 package application;
 
+import graphics.MeshHandler;
+import graphics.TextureHandler;
 import injection.annotations.Singleton;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -45,6 +47,8 @@ public abstract non-sealed class GraphicApplication extends Application {
 
         INJECTOR.bind(GraphicApplication.class, this);
         this.window = INJECTOR.create(Window.class);
+        INJECTOR.create(MeshHandler.class);
+        INJECTOR.create(TextureHandler.class);
 
         GL.createCapabilities();
         glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
