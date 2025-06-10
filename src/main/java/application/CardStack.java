@@ -2,17 +2,29 @@ package application;
 
 import java.util.*;
 
-public class CardStack extends LinkedList<Card> {
+public class CardStack {
 
+    private final LinkedList<Card> cards;
     // TODO: Implement a Modifier class to replace the String, to have actual functionality
     private final Set<String> modifiers;
 
     // ------------------------ Object Initialization ------------------------ //
     /**
-     * Creates a new instance of a {@link CardStack} without a {@link Card}.
+     * Creates a new instance of a {@link CardStack} without any {@link Card}s.
      */
     public CardStack() {
+        this.cards = new LinkedList<>();
         this.modifiers = new HashSet<>();
+    }
+
+    /**
+     * Creates a new instance of a {@link CardStack} using a provided {@link CardStack.Builder}.
+     *
+     * @param builder builder with customized CardStack attributes.
+     */
+    private CardStack(Builder builder) {
+        this.cards = builder.cards;
+        this.modifiers = builder.modifiers;
     }
 
     /**
@@ -20,7 +32,8 @@ public class CardStack extends LinkedList<Card> {
      */
     public static class Builder {
 
-        private final CardStack cardStack;
+        private final LinkedList<Card> cards;
+        private final Set<String> modifiers;
 
         /**
          * Creates a new instance of a {@link CardStack.Builder} for the creation of
@@ -34,58 +47,68 @@ public class CardStack extends LinkedList<Card> {
          * </ul>
          */
         public Builder() {
-            this.cardStack = new CardStack();
+            this.cards = new LinkedList<>();
+            this.modifiers = new HashSet<>();
         }
 
         /**
-         * Adds a new {@link Card} to the top of the {@link CardStack} being build with the {@link CardStack.Builder}.
+         * Adds a new {@link Card} to the top of the {@link CardStack} being built with the {@link CardStack.Builder}.
          *
          * @param card {@link Card} pushed on the CardStack, cannot be null.
-         * @return Current Builder class for the new CardStack being build.
+         * @return Current Builder class for the new CardStack being built.
          *
          * @throws IllegalArgumentException if provided Card is {@code null}.
          */
         public Builder addCard(Card card) {
             if (card == null) throw new IllegalArgumentException("New Card cannot be null");
-            this.cardStack.push(card);
+            this.cards.add(card);
             return this;
         }
 
         /**
-         * Adds a new {@code Modifier} to the {@link CardStack} being build with the {@link CardStack.Builder}.
+         * Adds a new {@code Modifier} to the {@link CardStack} being built with the {@link CardStack.Builder}.
          *
          * @param modifier {@code Modifier} added to the CardStack, cannot be null.
-         * @return Current Builder class for the new CardStack being build.
+         * @return Current Builder class for the new CardStack being built.
          *
          * @throws IllegalArgumentException if provided modifier is {@code null}, or already present.
          */
         public Builder addModifier(String modifier) {
             if (modifier == null) throw new IllegalArgumentException("New Modifier cannot be null");
-            if (!this.cardStack.modifiers.add(modifier))
+            if (!this.modifiers.add(modifier))
                 throw new IllegalArgumentException("Modifier already present on CardStack: " + modifier);
             return this;
         }
 
         /**
          * Finalizes the building and creates a new instance of a {@link CardStack}.
-         * @return the newly build CardStack.
+         * @return the newly built CardStack.
          */
         public CardStack build() {
-            return this.cardStack;
+            return new CardStack(this);
         }
     }
 
 
     // ------------------------ Getters & Setters ------------------------ //
     /**
-     * Getter for the {@code Modifier}s present on the {@link CardStack}. Note that the operations
-     * on the List do not influence the actual Modifiers on the CardStack. However, editing
-     * the Modifiers themselves will affect the CardStack.
+     * Getter for the {@link Card}s present on the {@link CardStack}. Note that the LinkedList
+     * is unmodifiable. However, editing the Cards themselves will affect the CardStack.
      *
-     * @return {@code List<String>} with all Modifiers on the CardStack.
+     * @return Unmodifiable {@code List<Card>} with all Cards on the CardStack.
      */
-    public List<String> getModifiers() {
-        return this.modifiers.stream().toList();
+    public List<Card> getCards() {
+        return Collections.unmodifiableList(this.cards);
+    }
+
+    /**
+     * Getter for the {@code Modifier}s present on the {@link CardStack}. Note that the Set is
+     * unmodifiable. However, editing the Modifiers themselves will affect the CardStack.
+     *
+     * @return Unmodifiable {@code Set<String>} with all Modifiers on the CardStack.
+     */
+    public Set<String> getModifiers() {
+        return Collections.unmodifiableSet(this.modifiers);
     }
 
 

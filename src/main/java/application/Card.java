@@ -12,6 +12,7 @@ public class Card {
     // ------------------------ Object Initialization ------------------------ //
     /**
      * Creates a new instance of a {@link Card} using a provided {@link Card.Builder}.
+     *
      * @param builder builder with customized Card attributes.
      */
     private Card(Builder builder) {
@@ -51,10 +52,10 @@ public class Card {
         }
 
         /**
-         * Sets the CardType of the new {@link Card} being build with the {@link Card.Builder}.
+         * Sets the CardType of the new {@link Card} being built with the {@link Card.Builder}.
          *
          * @param type {@link CardType} for the new Card, cannot be null.
-         * @return Current Builder class for the new Card being build.
+         * @return Current Builder class for the new Card being built.
          *
          * @throws IllegalArgumentException if provided CardType is {@code null}.
          */
@@ -65,10 +66,10 @@ public class Card {
         }
 
         /**
-         * Sets the hp of the new {@link Card} being build with the {@link Card.Builder}.
+         * Sets the hp of the new {@link Card} being built with the {@link Card.Builder}.
          *
          * @param hp hit points for the new Card, cannot negative.
-         * @return Current Builder class for the new Card being build.
+         * @return Current Builder class for the new Card being built.
          *
          * @throws IllegalArgumentException if provided hp is negative.
          */
@@ -79,10 +80,10 @@ public class Card {
         }
 
         /**
-         * Sets the dmg of the new {@link Card} being build with the {@link Card.Builder}.
+         * Sets the dmg of the new {@link Card} being built with the {@link Card.Builder}.
          *
          * @param dmg damage for the new Card, cannot negative.
-         * @return Current Builder class for the new Card being build.
+         * @return Current Builder class for the new Card being built.
          *
          * @throws IllegalArgumentException if provided dmg is negative.
          */
@@ -94,7 +95,7 @@ public class Card {
 
         /**
          * Finalizes the building and creates a new instance of a {@link Card}.
-         * @return the newly build Card.
+         * @return the newly built Card.
          */
         public Card build() {
             return new Card(this);
